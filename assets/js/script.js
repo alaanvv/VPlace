@@ -1,7 +1,13 @@
+// Config
+const pixelTimer = 5e3 * 60
+
 // Setup
 const canvas = document.querySelector('canvas')
 const frame = document.querySelector('.frame')
 const paintMenu = document.querySelector('.paint-menu')
+const closeBtn = document.querySelector('.close')
+const paintBtn = document.querySelector('.brush')
+const timerNumber = document.querySelector('.timer .number')
 
 canvas.width = 100
 canvas.height = canvas.width
@@ -12,6 +18,8 @@ frame.style.width = `${cellSize}px`
 
 let [scale, translateX, translateY] = [1, 0, 0]
 let selected = { x: 0, y: 0 }
+
+let selectedColorElement
 
 // Setup Paint-Menu
 for (let color of paintMenu.querySelectorAll('.color')) {
@@ -40,8 +48,21 @@ function updateTransform() {
 document.onclick = e => {
   if (!e.target.classList.contains('color')) return
 
+  if (selectedColorElement) selectedColorElement.removeAttribute('selected')
+  selectedColorElement = e.target
   e.target.setAttribute('selected', '')
 }
+closeBtn.onclick = e => { paintMenu.style.bottom = '-200px' }
+  // Update timer
+setInterval(e => {
+  let remainingTime = localStorage.getItem('nextPixel') ? Math.max(localStorage.getItem('nextPixel') - Date.now(), 0) : 0
+  remainingTime /= 1000
+
+  remainingMin = Math.trunc(remainingTime / 60)
+  remainingSec = Math.trunc(remainingTime % 60)
+
+  timerNumber.innerText = `${remainingMin.toString().padStart(2, '0')}:${remainingSec.toString().padStart(2, '0')}`
+}, 1e3)
 
 // Zoom
 document.addEventListener('wheel', e => {
@@ -71,6 +92,7 @@ function setFramePos(x, y) {
   frame.style.display = 'block'
 }
   // Update
+frame.addEventListener('dblclick', e => canvas.dispatchEvent(new Event('dblclick')))
 canvas.addEventListener('dblclick', e => {
   rect = canvas.getBoundingClientRect()
   mouse = {
@@ -85,10 +107,19 @@ canvas.addEventListener('dblclick', e => {
   selected.y = Math.trunc(inY / cellSize)
 
   setFramePos(selected.x, selected.y)
+  paintMenu.style.bottom = '0'
 })
 
-// Misc
-draw(4, 4, 'blue')
-draw(5, 5, 'blue')
-draw(5, 4, 'red')
-draw(4, 5, 'red')
+// Paint
+paintBtn.onclick = e => {
+  if (!selectedColorElement || !selected.x || localStorage.getItem('nextPixel') && localStorage.getItem('nextPixel') - Date.now() > 0) {
+    paintBtn.style.animation = 'shake 1 200ms linear'
+    paintBtn.addEventListener('animationend', e => { paintBtn.style.animation = 'none' })
+    return 
+  }
+
+  draw(selected.x, selected.y, selectedColorElement.getAttribute('value'))
+  // Here I have to do an API Post
+
+  localStorage.setItem('nextPixel', Date.now() + pixelTimer)
+}
