@@ -1,4 +1,10 @@
-# TODO
-- this readme i want to sleep aaa
-- a backend api  to store pixels like x num y num  color char
-check if the is a x an y as youre about to set, if yes replace it
+# VPlace
+
+If you're too weak to battle against bots  
+and streamers, maybe you need your own  
+**r/place** version!
+
+# Add/Fix
+
+- The whole backend
+- Make it responsible
