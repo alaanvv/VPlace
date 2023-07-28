@@ -80,7 +80,7 @@ class Backend {
     var data = { user, pixel }
 
     Backend._fetch('paint', 'POST', data)
-      .then(res => { if (res == 0) alert('Not allowed by Backend') })
+      .then(res => { if (res != 1) alert(res) })
   }
 }
 
