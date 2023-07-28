@@ -9,7 +9,6 @@ class Frame {
   }
 }
 
-window.addEventListener('canvasmoved', Frame.updatePos)
+// Send click back to canvas
 Frame.dom.addEventListener('dblclick', e => Canvas.dom.dispatchEvent(new Event('dblclick')))
-
-Frame.updatePos()
+window.addEventListener('resize', Frame.updatePos)

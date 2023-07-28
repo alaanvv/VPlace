@@ -1,5 +1,6 @@
 const apiUrl = 'http://localhost:666/'
 
+let logged = false
 const user = {} // { id, guilds, nextPixel }
 const config = {} // { colors, size, timer }
 
@@ -14,9 +15,9 @@ class Backend {
   }
 
   static async setup() {
-    Backend.loadUser()
+    const res = Backend.loadUser()
     // Info is required before pixels
-    await Backend.loadInfo() 
+    await Backend.loadInfo()
     Backend.loadPixels()
   }
 
@@ -24,7 +25,13 @@ class Backend {
     const fragment = new URLSearchParams(window.location.hash.slice(1))
     const [token, tokenType] = [fragment.get('access_token'), fragment.get('token_type')]
 
-    if (!token) window.location.href = './'
+    logged = Boolean(token)
+    if (!logged) {
+      alert('You\'re not allowed to paint here')
+
+      PaintMenu.dom.remove()
+      Frame.dom.remove()
+    }
 
     const userInfo = await fetch('https://discord.com/api/users/@me', { headers: { authorization: `${tokenType} ${token}` } })
       .then(result => result.json())
@@ -56,24 +63,25 @@ class Backend {
   }
 
   static loadPixels() {
-  Backend._fetch('canvas', 'GET')
-    .then(pixels => {
-      for (let pixel of pixels) {
-        Canvas.draw(pixel.x, pixel.y, `#${pixel.color}`)
-      }
-    })
-}
+    Backend._fetch('canvas', 'GET')
+      .then(pixels => {
+        for (let pixel of pixels) {
+          Canvas.draw(pixel.x, pixel.y, `#${pixel.color}`)
+        }
+      })
+  }
 
   static sendPixelToDatabase() {
-  user.nextPixel = Date.now() + config.timer
-  var pixel = { x: Canvas.selected.x, y: Canvas.selected.y, color: PaintMenu.colorElement.getAttribute('value').slice(1) }
-  var data = { user, pixel }
+    if (!logged) return
 
-  Backend._fetch('paint', 'POST', data)
-    .then(res => { if (res == 0) alert('Not allowed by Backend') })
+    user.nextPixel = Date.now() + config.timer
+    var pixel = { x: Canvas.selected.x, y: Canvas.selected.y, color: PaintMenu.color }
+    var data = { user, pixel }
+
+    Backend._fetch('paint', 'POST', data)
+      .then(res => { if (res == 0) alert('Not allowed by Backend') })
   }
 }
 
 Backend.setup()
-setInterval(Backend.loadPixels, 10e3)
-window.addEventListener('paint', Backend.sendPixelToDatabase)
+setInterval(Backend.loadPixels, 30e3)

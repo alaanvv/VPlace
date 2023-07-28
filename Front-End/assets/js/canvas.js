@@ -9,7 +9,9 @@ class Canvas {
 
   static selected = { x: 0, y: 0 }
 
-  static draw(x, y, color) {
+  static draw(x = Canvas.selected.x, y = Canvas.selected.y, color = undefined) {
+    if (!color) color = `#${PaintMenu.color}`
+
     Canvas.ctx.fillStyle = color
     Canvas.ctx.fillRect(x, y, 1, 1)
   }
@@ -22,7 +24,7 @@ class Canvas {
     Canvas.dom.style.transform = `scale(${Canvas.scale}) translate(${Canvas.translateX}px, ${Canvas.translateY}px)`
 
     Canvas.updatePixelSize()
-    window.dispatchEvent(new Event('canvasmoved'))
+    Frame.updatePos()
   }
 
   static updatePixelSize() {
@@ -62,10 +64,4 @@ Canvas.dom.addEventListener('dblclick', e => {
 
   Frame.updatePos()
   PaintMenu.show()
-})
-
-window.addEventListener('paint', e => {
-  Canvas.draw(Canvas.selected.x, Canvas.selected.y, PaintMenu.colorElement.getAttribute('value'))
-  
-  localStorage.setItem('nextPixel', Date.now() + config.timer)
 })

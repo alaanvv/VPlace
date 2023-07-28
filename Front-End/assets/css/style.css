@@ -61,6 +61,7 @@ canvas {
   box-shadow: 0 0 50px 0 #000;
   transition: bottom ease-in-out 100ms;
 }
+
 .hidden {
   bottom: -200px;
 }
@@ -78,10 +79,11 @@ canvas {
 .color {
   aspect-ratio: 1;
   height: 60px;
-  border: 0.1px solid rgb(120, 120, 120, 0.5);
-  
+  border: 0.1px solid rgba(70, 70, 70, 0.5);
+
   cursor: pointer;
 }
+
 .color[selected] {
   border-width: 5px;
 }
@@ -99,13 +101,33 @@ canvas {
   color: #0005;
 }
 
-.timer span, .timer .number { font-size: 25px !important; }
+.timer span,
+.timer .number {
+  font-size: 25px !important;
+}
 
 /* Animation */
 
 @keyframes shake {
-  10%, 90% { transform: translateX(-1px); }
-  20%, 80% { transform: translateX(2px); }
-  30%, 50%, 70% { transform: translateX(-4px); }
-  40%, 60% { transform: translateX(4px); }
+
+  10%,
+  90% {
+    transform: translateX(-1px);
+  }
+
+  20%,
+  80% {
+    transform: translateX(2px);
+  }
+
+  30%,
+  50%,
+  70% {
+    transform: translateX(-4px);
+  }
+
+  40%,
+  60% {
+    transform: translateX(4px);
+  }
 }
