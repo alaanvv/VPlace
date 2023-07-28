@@ -51,6 +51,7 @@ class Backend {
 
     Canvas.dom.width = config.size
     Canvas.dom.height = Canvas.dom.width
+    Canvas.updatePixelSize()
 
     for (let color of config.colors) {
       let div = document.createElement('div')

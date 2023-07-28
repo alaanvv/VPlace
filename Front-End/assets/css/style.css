@@ -47,19 +47,29 @@ canvas {
 
 .paint-menu {
   position: absolute;
-  bottom: 0;
-
+  bottom: 0;  
+  
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  gap: 20px;
-
+  justify-items: center;
+  gap: 10px;
+  
   width: 100%;
-  padding: 30px;
+  padding: 30px 15%;
 
   background-color: #fff;
   box-shadow: 0 0 50px 0 #000;
+
   transition: bottom ease-in-out 100ms;
+}
+
+.special {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 }
 
 .hidden {
@@ -67,7 +77,7 @@ canvas {
 }
 
 .paint-menu span {
-  font-size: 60px !important;
+  font-size: 3.5em !important;
 }
 
 .bar {
@@ -78,7 +88,7 @@ canvas {
 
 .color {
   aspect-ratio: 1;
-  height: 60px;
+  width: 60px;
   border: 0.1px solid rgba(70, 70, 70, 0.5);
 
   cursor: pointer;
@@ -103,7 +113,7 @@ canvas {
 
 .timer span,
 .timer .number {
-  font-size: 25px !important;
+  font-size: 0.4em !important;
 }
 
 /* Animation */
