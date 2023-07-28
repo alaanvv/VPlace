@@ -1,8 +1,8 @@
 const mysql = require('mysql')
 
 class Database {
-  constructor(host, port, user, database) {
-    this.conn = mysql.createConnection({ host, port, user, database })
+  constructor(host, port, user, database, password) {
+    this.conn = mysql.createConnection({ host, port, user, database, password })
   }
 
   add_timer(id, nextPixel) {
@@ -12,7 +12,9 @@ class Database {
 
   get_timer(id) {
     return new Promise(resolve => {
-      this.conn.query('SELECT nextPixel FROM timers WHERE id = ?;', [id], (err, res) => { resolve(res[0].nextPixel) })
+      this.conn.query('SELECT nextPixel FROM timers WHERE id = ?;', [id], (err, res) => { 
+        resolve(res && res[0] ? res[0].nextPixel : 0) 
+      })
     })
   }
 

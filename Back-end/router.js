@@ -8,7 +8,7 @@ const timer = Number(process.env.timer)
 const colors = JSON.parse(process.env.colors)
 
 const router = new Router()
-const db = new Database(process.env.db_host, Number(process.env.db_port), process.env.db_user, process.env.db_name)
+const db = new Database(process.env.db_host, Number(process.env.db_port), process.env.db_user, process.env.db_name, process.env.db_password)
 
 router.get('/info', (req, res) => res.send({ colors: colors, size: size, timer: timer }))
 
