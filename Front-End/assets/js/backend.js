@@ -1,4 +1,4 @@
-const apiUrl = 'http://localhost:666/'
+const apiUrl = 'https://v-place.vercel.app/'
 
 let logged = false
 const user = {} // { id, guilds, nextPixel }
