@@ -63,9 +63,11 @@ Canvas.dom.addEventListener('dblclick', e => {
   Canvas.selected.y = Math.trunc(inPos.y / Canvas.pixelSize)
 
   if (isNaN(Canvas.selected.x)) {
-    console.log(Canvas)
-    console.log(Canvas.table)
     console.log(inPos)
+    console.log(mouse.x)
+    console.log(rect.x)
+    console.log(mouse.y)
+    console.log(rect.y)
   }
 
   Frame.updatePos()
