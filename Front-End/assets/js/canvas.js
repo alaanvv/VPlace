@@ -57,19 +57,27 @@ window.addEventListener('mouseup', e => window.onmousemove = undefined)
 Canvas.dom.addEventListener('dblclick', e => {
   var rect = Canvas.dom.getBoundingClientRect()
   var mouse = { x: e.clientX, y: e.clientY }
+  if (!mouse.x) return
   var inPos = { x: mouse.x - rect.x, y: inY = mouse.y - rect.y }
 
   Canvas.selected.x = Math.trunc(inPos.x / Canvas.pixelSize)
   Canvas.selected.y = Math.trunc(inPos.y / Canvas.pixelSize)
 
-  if (isNaN(Canvas.selected.x)) {
-    console.log(inPos)
-    console.log(mouse.x)
-    console.log(rect.x)
-    console.log(mouse.y)
-    console.log(rect.y)
-  }
-
   Frame.updatePos()
   PaintMenu.show()
+})
+
+window.addEventListener('keydown', e => {
+  const key = e.key
+
+  if (key === 'ArrowLeft') Canvas.selected.x--
+  if (key === 'ArrowRight') Canvas.selected.x++
+  
+  if (key === 'ArrowUp') Canvas.selected.y--
+  if (key === 'ArrowDown') Canvas.selected.y++
+
+  Canvas.selected.x = Math.max(Math.min(Canvas.selected.x, Canvas.size), 0)
+  Canvas.selected.y = Math.max(Math.min(Canvas.selected.y, Canvas.size), 0)
+  
+  Frame.updatePos()
 })
