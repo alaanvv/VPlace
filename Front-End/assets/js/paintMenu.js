@@ -9,7 +9,7 @@ class PaintMenu {
   static show = () => PaintMenu.dom.classList.remove('hidden')
 
   static updateTimer = () => {
-    var remainingTime = localStorage.getItem('nextPixel') ? Math.max(localStorage.getItem('nextPixel') - Date.now(), 0) : 0
+    var remainingTime = localStorage.getItem('nextPixel') ? Math.max(localStorage.getItem('nextPixel') - Date.now() + 1e3, 0) : 0
     remainingTime /= 1000 // Convert ms to s
 
     var remainingMin = Math.trunc(remainingTime / 60).toString().padStart(2, '0')

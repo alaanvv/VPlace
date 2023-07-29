@@ -62,6 +62,12 @@ Canvas.dom.addEventListener('dblclick', e => {
   Canvas.selected.x = Math.trunc(inPos.x / Canvas.pixelSize)
   Canvas.selected.y = Math.trunc(inPos.y / Canvas.pixelSize)
 
+  if (isNaN(Canvas.selected.x)) {
+    console.log(Canvas)
+    console.log(Canvas.table)
+    console.log(inPos)
+  }
+
   Frame.updatePos()
   PaintMenu.show()
 })
