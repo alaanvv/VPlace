@@ -22,11 +22,13 @@ router.post('/paint', async (req, res) => {
   // Accepts only my server members
   // Check if user is timed out
   const timer = await db.get_timer(user.id)
-  if (!colors.includes(pixel.color) || !user.guilds.includes(guild) || timer && timer > Date.now()) return res.send('0')
+  if (!colors.includes(pixel.color)) return res.status(500).send('{ err: Invalid color }')
+  if (!user.guilds.includes(guild)) return res.status(500).send('{ err: Invalid guild }')
+  if (timer && timer > Date.now()) return res.status(500).send('{ err: Invalid time }')
   db.create_pixel(pixel)
   db.add_timer(user.id, user.nextPixel)
 
-  res.send('1')
+  res.status(200).send('1')
 })
 
 module.exports = router

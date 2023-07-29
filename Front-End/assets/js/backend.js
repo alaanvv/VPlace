@@ -29,8 +29,8 @@ class Backend {
     if (!logged) {
       alert('You\'re not allowed to paint here')
 
-      PaintMenu.dom.remove()
-      Frame.dom.remove()
+      document.querySelector('.paint-menu').remove()
+      document.querySelector('.frame').remove()
     }
 
     const userInfo = await fetch('https://discord.com/api/users/@me', { headers: { authorization: `${tokenType} ${token}` } })
@@ -79,7 +79,7 @@ class Backend {
     var data = { user, pixel }
 
     Backend._fetch('paint', 'POST', data)
-      .then(res => { if (res == 0) alert('Not allowed by Backend') })
+      .then(res => { if (res != 1) alert(res) })
   }
 }
 
