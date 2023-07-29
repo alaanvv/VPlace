@@ -1,4 +1,4 @@
-const apiUrl = 'http://localhost:666/'
+const apiUrl = 'https://v-place.vercel.app/'
 
 let logged = false
 const user = {} // { id, guilds, nextPixel }
@@ -75,7 +75,6 @@ class Backend {
   static sendPixelToDatabase() {
     if (!logged) return
 
-    user.nextPixel = Date.now() + config.timer
     var pixel = { x: Canvas.selected.x, y: Canvas.selected.y, color: PaintMenu.color }
     var data = { user, pixel }
 
