@@ -76,8 +76,8 @@ window.addEventListener('keydown', e => {
   if (key === 'ArrowUp') Canvas.selected.y--
   if (key === 'ArrowDown') Canvas.selected.y++
 
-  Canvas.selected.x = Math.max(Math.min(Canvas.selected.x, Canvas.size), 0)
-  Canvas.selected.y = Math.max(Math.min(Canvas.selected.y, Canvas.size), 0)
+  Canvas.selected.x = Math.max(Math.min(Canvas.selected.x, Canvas.dom.width), 0)
+  Canvas.selected.y = Math.max(Math.min(Canvas.selected.y, Canvas.dom.width), 0)
   
   Frame.updatePos()
 })
