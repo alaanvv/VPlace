@@ -36,7 +36,7 @@ document.onclick = e => {
 PaintMenu.paintBtn.addEventListener('click', e => {
   if (!PaintMenu.colorElement || Canvas.selected.x === undefined || localStorage.getItem('nextPixel') && localStorage.getItem('nextPixel') > Date.now()) return PaintMenu.paintBtn.style.animation = 'shake 1 200ms linear'
 
-  localStorage.setItem('nextPixel', Date.now() + config.timer)
+  localStorage.setItem('nextPixel', Date.now() + config.timer + 999)
   Canvas.draw()
   Backend.sendPixelToDatabase()
 })
