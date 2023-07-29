@@ -3,6 +3,9 @@ const mysql = require('mysql')
 class Database {
   constructor(host, port, user, database, password) {
     this.conn = mysql.createConnection({ host, port, user, database, password })
+
+    this.conn.query('CREATE TABLE IF NOT EXISTS pixels (x SMALLINT, y SMALLINT, color CHAR(6));')
+    this.conn.query('CREATE TABLE IF NOT EXISTS timers (id BIGINT, nextPixel BIGINT);')
   }
 
   add_timer(id, nextPixel) {
