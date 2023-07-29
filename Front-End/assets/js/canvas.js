@@ -65,7 +65,7 @@ Canvas.dom.addEventListener('dblclick', e => {
   Frame.updatePos()
   PaintMenu.show()
 })
-window.addEventListener('keypress', e => {
+window.addEventListener('keydown', e => {
   const key = e.key
   if (key === 'ArrowLeft') Canvas.selected.x--
   if (key === 'ArrowRight') Canvas.selected.x++
