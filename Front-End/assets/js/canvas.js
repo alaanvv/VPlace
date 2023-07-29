@@ -65,3 +65,16 @@ Canvas.dom.addEventListener('dblclick', e => {
   Frame.updatePos()
   PaintMenu.show()
 })
+window.addEventListener('keypress', e => {
+  const key = e.key
+  if (key === 'ArrowLeft') Canvas.selected.x--
+  if (key === 'ArrowRight') Canvas.selected.x++
+  
+  if (key === 'ArrowUp') Canvas.selected.y--
+  if (key === 'ArrowDown') Canvas.selected.y++
+
+  Canvas.selected.x = Math.max(Math.min(Canvas.selected.x, Canvas.size), 0)
+  Canvas.selected.y = Math.max(Math.min(Canvas.selected.y, Canvas.size), 0)
+  
+  Frame.updatePos()
+})
