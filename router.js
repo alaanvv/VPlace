@@ -10,10 +10,7 @@ const colors = JSON.parse(process.env.colors)
 const router = new Router()
 const db = new Database(process.env.db_host, Number(process.env.db_port), process.env.db_user, process.env.db_name, process.env.db_password)
 
-// I'll deploy in a different service
-// router.get('/', (req, res) => res.sendFile(`${__dirname}/public/index.html`))
-
-router.get('/info', (req, res) => res.send({ colors: colors, size: size, timer: timer }))
+router.get('/info', (req, res) => res.send({ colors, size, timer }))
 
 router.get('/canvas', async (req, res) => res.send(await db.get_canvas() || []))
 
