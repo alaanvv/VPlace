@@ -23,6 +23,3 @@ OAuth2 url linked to the front-end
 that allows `identify` and `guilds`
 - Change the url response type to token
 - From this url, you can access the app
-
-# Add/Fix
-- Fix the bundle of problems with unlogged users
